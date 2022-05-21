@@ -57,4 +57,10 @@ fn main() {
     println!("11月：{}", _months[10]);
     println!("12月：{}", _months[11]);
 
+    // 整型字面值
+    println!("{}", b'a');
+    println!("{}", 98_222);
+    println!("{}", 0b00_11);
+    println!("{}", 0xA);
+    println!("{}", 0o11);
 }
