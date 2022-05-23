@@ -16,6 +16,13 @@ fn main() {
         - 使用 + 运算符或 format! 宏拼接字符串
         - Rust 的字符串不支持索引。
         - 操作字符串每一部分的最好的方法是明确表示需要字符还是字节。
+    3.HashMap
+        - 可以使用 new 创建一个空的 HashMap，并使用 insert 增加元素。
+        - 哈希 map 是同质的：所有的键必须是相同类型，值也必须都是相同类型。
+        - 如果将值的引用插入哈希 map，这些值本身将不会被移动进哈希 map。但是这些引用指向的值必须至少在哈希 map 有效时也是有效的。
+        - 可以通过 get 方法并提供对应的键来从哈希 map 中获取值
+        - 如果我们插入了一个键值对，接着用相同的键插入一个不同的值，与这个键相关联的旧值将被替换。
+        - entry 的 or_insert 方法在键对应的值存在时就返回这个值的可变引用，如果不存在则将参数作为新值插入并返回新值的可变引用。
     */
     let mut v: Vec<i32> = Vec::new();
 
@@ -92,5 +99,26 @@ fn main() {
     // 输出字节
     for b in "नमस्ते".bytes() {
         println!("{}", b);
+    }
+
+    use std::collections::HashMap;
+
+    let mut scores = HashMap::new();
+
+    scores.insert(String::from("Blue"), 10);
+    scores.insert(String::from("Yellow"), 50);
+
+    let teams = vec![String::from("Blue"), String::from("Yellow")];
+    let initial_scores = vec![10, 50];
+
+    let mut scores01: HashMap<_, _> = teams.into_iter().zip(initial_scores.into_iter()).collect();
+
+    scores01.entry(String::from("Red")).or_insert(30);
+
+    println!("{:?}", scores01.get(&String::from("Blue")));
+    println!("{:?}", scores01);
+
+    for (key, value) in &scores {
+        println!("{}: {}", key, value);
     }
 }
